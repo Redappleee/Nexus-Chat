@@ -21,17 +21,19 @@ export function MessageInput({ chatId }: { chatId: string }) {
   const setDraft = useChatStore((s) => s.setDraft);
   const replyTo = useChatStore((s) => s.replyTo[chatId]);
   const setReplyTo = useChatStore((s) => s.setReplyTo);
-  const [value, setText] = useState(drafts[chatId] || '');
+  const [value, setText] = useState(() => drafts[chatId] || '');
+  const [prevChatId, setPrevChatId] = useState(chatId);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [smartReplies, setSmartReplies] = useState<string[]>([]);
   const [loadingReplies, setLoadingReplies] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  useEffect(() => {
+  if (prevChatId !== chatId) {
+    setPrevChatId(chatId);
     setText(drafts[chatId] || '');
     setShowEmojiPicker(false);
     setSmartReplies([]);
-  }, [chatId, drafts]);
+  }
 
   const handleChange = (val: string) => {
     setText(val);

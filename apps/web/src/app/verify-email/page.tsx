@@ -10,13 +10,12 @@ import { MessageCircle, CheckCircle, XCircle } from 'lucide-react';
 function VerifyContent() {
   const params = useSearchParams();
   const token = params.get('token');
-  const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
+  const [status, setStatus] = useState<'loading' | 'success' | 'error'>(() =>
+    token ? 'loading' : 'error'
+  );
 
   useEffect(() => {
-    if (!token) {
-      setStatus('error');
-      return;
-    }
+    if (!token) return;
     api
       .get('/auth/verify-email', { params: { token } })
       .then(() => setStatus('success'))
@@ -48,7 +47,7 @@ function VerifyContent() {
 
 export default function VerifyEmailPage() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-zinc-950 p-6">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-[#080c16] p-6">
       <Link href="/" className="mb-8 inline-flex items-center gap-2 text-emerald-500">
         <MessageCircle className="h-8 w-8" />
         <span className="text-xl font-bold">Nexus Chat</span>

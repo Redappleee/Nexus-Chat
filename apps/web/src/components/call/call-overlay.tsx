@@ -56,15 +56,14 @@ export function CallOverlay({ chatId }: { chatId: string }) {
 
   // Timer for active call
   useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (callActive && isConnected) {
-      interval = setInterval(() => {
-        setCallDuration((d) => d + 1);
-      }, 1000);
-    } else {
+    if (!callActive || !isConnected) return;
+    const interval = setInterval(() => {
+      setCallDuration((d) => d + 1);
+    }, 1000);
+    return () => {
+      clearInterval(interval);
       setCallDuration(0);
-    }
-    return () => clearInterval(interval);
+    };
   }, [callActive, isConnected]);
 
   const formatDuration = (seconds: number) => {

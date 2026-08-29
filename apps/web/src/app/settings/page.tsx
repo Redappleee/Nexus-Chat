@@ -96,8 +96,6 @@ export default function SettingsPage() {
       } else {
         router.replace('/login');
       }
-    } else {
-      setCheckingAuth(false);
     }
 
     // Load local client preferences
@@ -236,7 +234,7 @@ export default function SettingsPage() {
         <div className="mb-8 rounded-3xl border border-white/[0.08] bg-[#090d16]/80 p-6 backdrop-blur-2xl shadow-xl flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="relative group">
-              <Avatar src={user.avatar} name={user.displayName} size="xl" status={status as any} />
+              <Avatar src={user.avatar} name={user.displayName} size="xl" status={status as 'online' | 'offline' | 'busy' | 'away'} />
               <label className="absolute inset-0 flex items-center justify-center bg-black/60 rounded-2xl opacity-0 group-hover:opacity-100 cursor-pointer transition-all">
                 <input
                   type="file"
