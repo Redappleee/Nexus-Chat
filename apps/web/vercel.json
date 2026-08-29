@@ -1,0 +1,6 @@
+{
+  "framework": "nextjs",
+  "installCommand": "cd ../.. && npm install && npm run build -w @nexus/shared",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next"
+}

@@ -1,0 +1,27 @@
+{
+  "name": "nexus-chat",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n server,web -c blue,green \"npm run dev -w @nexus/server\" \"npm run dev -w @nexus/web\"",
+    "dev:web": "npm run dev -w @nexus/web",
+    "dev:server": "npm run dev -w @nexus/server",
+    "kill-ports": "lsof -ti :3001,:4000 | xargs kill -9 2>/dev/null || true",
+    "build": "npm run build -w @nexus/shared && npm run build -w @nexus/server && npm run build -w @nexus/web",
+    "lint": "npm run lint -w @nexus/server && npm run lint -w @nexus/web",
+    "test": "npm run test -w @nexus/server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@google/genai": "^2.10.0"
+  }
+}

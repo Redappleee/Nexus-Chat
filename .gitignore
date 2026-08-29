@@ -1,0 +1,17 @@
+node_modules
+dist
+.next
+.turbo
+.env
+.env.*
+*.env
+apps/*/.env
+apps/*/.env.*
+.env.local
+.env.*.local
+*.log
+.DS_Store
+coverage
+.vercel
+uploads
+*.pem
