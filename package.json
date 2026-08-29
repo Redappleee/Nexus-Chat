@@ -12,6 +12,8 @@
     "dev:server": "npm run dev -w @nexus/server",
     "kill-ports": "lsof -ti :3001,:4000 | xargs kill -9 2>/dev/null || true",
     "build": "npm run build -w @nexus/shared && npm run build -w @nexus/server && npm run build -w @nexus/web",
+    "build:server": "npm run build -w @nexus/shared && npm run build -w @nexus/server",
+    "start:server": "npm run start -w @nexus/server",
     "lint": "npm run lint -w @nexus/server && npm run lint -w @nexus/web",
     "test": "npm run test -w @nexus/server"
   },
