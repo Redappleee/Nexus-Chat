@@ -8,6 +8,7 @@ import passport from 'passport';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import path from 'path';
+import mongoose from 'mongoose';
 import routes from './routes';
 import { errorHandler } from './middleware/errorHandler';
 import { env } from './config/env';
@@ -60,9 +61,17 @@ export function createApp() {
   app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
   app.get('/', (_req, res) => {
+    const dbState = mongoose.connection.readyState;
+    const dbStatusMap: Record<number, string> = {
+      0: 'disconnected',
+      1: 'connected',
+      2: 'connecting',
+      3: 'disconnecting',
+    };
     res.json({
       name: 'Nexus Chat API',
       status: 'online',
+      database: dbStatusMap[dbState] || 'unknown',
       version: '1.0.0',
       docs: '/api/docs',
       health: '/health',
@@ -70,9 +79,15 @@ export function createApp() {
     });
   });
 
-  app.get('/health', (_req, res) =>
-    res.json({ status: 'ok', timestamp: new Date().toISOString() })
-  );
+  app.get('/health', (_req, res) => {
+    const dbState = mongoose.connection.readyState;
+    const isDbReady = dbState === 1;
+    res.status(isDbReady ? 200 : 503).json({
+      status: isDbReady ? 'ok' : 'database_unavailable',
+      databaseState: dbState,
+      timestamp: new Date().toISOString(),
+    });
+  });
 
   app.use('/api/v1', routes);
   app.use(errorHandler);
