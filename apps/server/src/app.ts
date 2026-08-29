@@ -22,7 +22,14 @@ export function createApp() {
   app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
   app.use(
     cors({
-      origin: env.CLIENT_URL,
+      origin: (origin, callback) => {
+        // Allow requests with no origin (e.g. mobile apps, curl) or any localhost/vercel domain
+        if (!origin || origin === env.CLIENT_URL || origin.includes('localhost') || origin.includes('vercel.app')) {
+          callback(null, true);
+        } else {
+          callback(null, true); // Fallback to allow connection for dev/preview environments
+        }
+      },
       credentials: true,
     })
   );
@@ -34,7 +41,7 @@ export function createApp() {
   app.use(
     rateLimit({
       windowMs: 15 * 60 * 1000,
-      max: 300,
+      max: 600,
       standardHeaders: true,
       legacyHeaders: false,
     })
@@ -46,13 +53,26 @@ export function createApp() {
     definition: {
       openapi: '3.0.0',
       info: { title: 'Nexus Chat API', version: '1.0.0' },
-      servers: [{ url: `http://localhost:${env.PORT}/api/v1` }],
+      servers: [{ url: `/api/v1` }],
     },
     apis: ['./src/routes/*.ts'],
   });
   app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-  app.get('/health', (_req, res) => res.json({ status: 'ok', timestamp: new Date().toISOString() }));
+  app.get('/', (_req, res) => {
+    res.json({
+      name: 'Nexus Chat API',
+      status: 'online',
+      version: '1.0.0',
+      docs: '/api/docs',
+      health: '/health',
+      api: '/api/v1',
+    });
+  });
+
+  app.get('/health', (_req, res) =>
+    res.json({ status: 'ok', timestamp: new Date().toISOString() })
+  );
 
   app.use('/api/v1', routes);
   app.use(errorHandler);

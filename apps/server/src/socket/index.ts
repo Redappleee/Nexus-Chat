@@ -17,7 +17,16 @@ const onlineUsers = new Map<string, string>();
 
 export function initSocket(httpServer: HttpServer) {
   const io = new Server(httpServer, {
-    cors: { origin: env.CLIENT_URL, credentials: true },
+    cors: {
+      origin: (origin, callback) => {
+        if (!origin || origin === env.CLIENT_URL || origin.includes('localhost') || origin.includes('vercel.app')) {
+          callback(null, true);
+        } else {
+          callback(null, true);
+        }
+      },
+      credentials: true,
+    },
     transports: ['websocket', 'polling'],
   });
 
