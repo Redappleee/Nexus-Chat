@@ -2,14 +2,15 @@ import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { env } from './env';
 
-export function getGoogleCallbackUrl(): string {
-  if (env.GOOGLE_CALLBACK_URL) return env.GOOGLE_CALLBACK_URL;
-  return `http://localhost:${env.PORT}/api/v1/auth/google/callback`;
-}
-
 export function getApiPublicUrl(): string {
   if (process.env.API_PUBLIC_URL) return process.env.API_PUBLIC_URL.replace(/\/$/, '');
+  if (process.env.RENDER_EXTERNAL_URL) return process.env.RENDER_EXTERNAL_URL.replace(/\/$/, '');
   return `http://localhost:${env.PORT}`;
+}
+
+export function getGoogleCallbackUrl(): string {
+  if (env.GOOGLE_CALLBACK_URL) return env.GOOGLE_CALLBACK_URL;
+  return `${getApiPublicUrl()}/api/v1/auth/google/callback`;
 }
 
 export function isGoogleOAuthEnabled(): boolean {
