@@ -1,10 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import {
-  MessageSquare,
-  Shield,
   Zap,
   Video,
   Bot,
@@ -19,11 +16,13 @@ export default function HomePage() {
   return (
     <div className="relative min-h-screen bg-[#080c16] text-zinc-100 selection:bg-emerald-500/30">
       {/* Navigation */}
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6 md:px-12 border-b border-white/[0.06]">
-        <div className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-600 text-white font-bold">
-            <MessageSquare className="h-4 w-4" />
-          </div>
+      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5 md:px-12 border-b border-white/[0.06]">
+        <div className="flex items-center gap-3">
+          <img
+            src="/logo.png"
+            alt="Nexus Logo"
+            className="h-9 w-9 rounded-xl object-cover shadow-md shadow-blue-500/20 ring-1 ring-white/10"
+          />
           <span className="text-base font-bold tracking-tight text-white">Nexus Chat</span>
         </div>
         <div className="flex items-center gap-3">
@@ -33,7 +32,7 @@ export default function HomePage() {
             </Button>
           </Link>
           <Link href="/register">
-            <Button className="text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white">
+            <Button className="text-xs font-semibold rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white">
               Get Started
             </Button>
           </Link>
@@ -41,7 +40,7 @@ export default function HomePage() {
       </nav>
 
       {/* Hero Section */}
-      <main className="mx-auto max-w-4xl px-6 pt-20 text-center pb-24">
+      <main className="mx-auto max-w-5xl px-6 pt-16 text-center pb-24">
         {/* Top Badge */}
         <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-[#101626] px-3.5 py-1 text-xs font-medium text-zinc-300 mb-8">
           <span className="h-2 w-2 rounded-full bg-emerald-400" />
@@ -75,8 +74,19 @@ export default function HomePage() {
           </Link>
         </div>
 
+        {/* App Cover Showcase Card */}
+        <div className="mt-14 mx-auto max-w-md rounded-3xl p-3 border border-white/[0.1] bg-[#0e1424]/90 shadow-2xl backdrop-blur-2xl">
+          <div className="overflow-hidden rounded-2xl border border-white/[0.08] relative group">
+            <img
+              src="/app-cover.png"
+              alt="Nexus Chat Cover"
+              className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+        </div>
+
         {/* Feature Cards Grid */}
-        <div className="mt-24 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 text-left">
+        <div className="mt-20 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 text-left">
           {[
             {
               icon: Zap,
@@ -127,7 +137,8 @@ export default function HomePage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-white/[0.06] py-8 text-center text-xs text-zinc-500">
+      <footer className="border-t border-white/[0.06] py-8 text-center text-xs text-zinc-500 flex flex-col items-center gap-2">
+        <img src="/logo.png" alt="Nexus" className="h-6 w-6 rounded-lg object-cover opacity-80" />
         <p>© 2026 Nexus Chat. Designed for fast and focused conversations.</p>
       </footer>
     </div>

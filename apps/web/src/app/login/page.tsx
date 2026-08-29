@@ -1,21 +1,20 @@
 import { Suspense } from 'react';
 import { AuthForm } from '@/components/auth/auth-form';
 import Link from 'next/link';
-import { MessageCircle } from 'lucide-react';
 
 export default function LoginPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-950 p-6">
-      <div className="w-full max-w-md space-y-8">
+    <div className="flex min-h-screen items-center justify-center bg-[#080c16] p-6 text-zinc-100">
+      <div className="w-full max-w-md space-y-6">
         <div className="text-center">
-          <Link href="/" className="inline-flex items-center gap-2 text-emerald-500">
-            <MessageCircle className="h-8 w-8" />
-            <span className="text-xl font-bold">Nexus Chat</span>
+          <Link href="/" className="inline-flex items-center gap-2.5">
+            <img src="/logo.png" alt="Nexus Logo" className="h-10 w-10 rounded-2xl object-cover shadow-lg shadow-blue-500/20 ring-1 ring-white/10" />
+            <span className="text-xl font-bold tracking-tight text-white">Nexus Chat</span>
           </Link>
-          <h1 className="mt-6 text-2xl font-bold text-zinc-100">Welcome back</h1>
-          <p className="mt-2 text-sm text-zinc-500">Sign in to continue</p>
+          <h1 className="mt-6 text-2xl font-extrabold text-zinc-100 tracking-tight">Welcome back</h1>
+          <p className="mt-1.5 text-xs text-zinc-400">Sign in to your account</p>
         </div>
-        <Suspense fallback={<p className="text-center text-zinc-500">Loading…</p>}>
+        <Suspense fallback={<p className="text-center text-xs text-zinc-500">Loading…</p>}>
           <AuthForm mode="login" />
         </Suspense>
       </div>

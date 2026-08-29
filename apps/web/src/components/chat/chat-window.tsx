@@ -100,11 +100,11 @@ export function ChatWindow() {
     return (
       <div className="flex flex-1 flex-col items-center justify-center h-full min-h-0 overflow-hidden bg-[#090d16]">
         <div className="flex flex-col items-center text-center max-w-sm px-6">
-          <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#141b2c] border border-white/[0.08]">
-            <MessageSquare className="h-7 w-7 text-emerald-400" />
+          <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#141b2c] border border-white/[0.08] shadow-xl p-1.5">
+            <img src="/logo.png" alt="Nexus Logo" className="h-full w-full rounded-xl object-cover" />
           </div>
 
-          <h2 className="text-lg font-bold text-zinc-100">
+          <h2 className="text-lg font-bold text-zinc-100 tracking-tight">
             Nexus Chat
           </h2>
 
