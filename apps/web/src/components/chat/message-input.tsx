@@ -125,19 +125,19 @@ export function MessageInput({ chatId }: { chatId: string }) {
   };
 
   return (
-    <div className="relative shrink-0 border-t border-white/[0.08] bg-[#0c101c] px-4 py-3">
+    <div className="relative shrink-0 border-t border-white/[0.08] bg-[#0c101c] px-3 sm:px-4 py-3 w-full min-w-0 max-w-full">
       {/* Replying To Preview Banner */}
       {replyTo && (
-        <div className="mb-2 flex items-center justify-between rounded-lg bg-[#141b2c] border border-emerald-500/30 px-3 py-2 text-xs">
-          <div className="min-w-0 pr-2 border-l-2 border-emerald-500 pl-2">
-            <p className="font-semibold text-emerald-400 text-[11px]">
+        <div className="mb-2 flex items-center justify-between rounded-lg bg-[#141b2c] border border-emerald-500/30 px-3 py-2 text-xs min-w-0 w-full">
+          <div className="min-w-0 flex-1 pr-2 border-l-2 border-emerald-500 pl-2">
+            <p className="font-semibold text-emerald-400 text-[11px] truncate">
               Replying to {replyTo.sender.displayName}
             </p>
             <p className="truncate text-zinc-300">{replyTo.content || '[Media]'}</p>
           </div>
           <button
             type="button"
-            className="rounded p-1 text-zinc-400 hover:text-white hover:bg-white/[0.08] transition-colors"
+            className="rounded p-1 text-zinc-400 hover:text-white hover:bg-white/[0.08] transition-colors shrink-0"
             onClick={() => setReplyTo(chatId, null)}
           >
             <X className="h-4 w-4" />
@@ -147,8 +147,8 @@ export function MessageInput({ chatId }: { chatId: string }) {
 
       {/* AI Smart Replies Pill Bar */}
       {smartReplies.length > 0 && (
-        <div className="mb-2 flex flex-wrap items-center gap-1.5">
-          <span className="flex items-center gap-1 text-[11px] font-semibold text-emerald-400 mr-1">
+        <div className="mb-2 flex items-center gap-1.5 overflow-x-auto no-scrollbar max-w-full pb-1">
+          <span className="flex items-center gap-1 text-[11px] font-semibold text-emerald-400 shrink-0 mr-1">
             <Sparkles className="h-3 w-3" />
             AI Suggestions:
           </span>
@@ -161,7 +161,7 @@ export function MessageInput({ chatId }: { chatId: string }) {
                 setSmartReplies([]);
                 textareaRef.current?.focus();
               }}
-              className="rounded-full bg-[#162033] hover:bg-[#1e2a44] border border-emerald-500/30 px-3 py-1 text-xs font-medium text-emerald-300 hover:text-emerald-200 transition-colors"
+              className="shrink-0 rounded-full bg-[#162033] hover:bg-[#1e2a44] border border-emerald-500/30 px-3 py-1 text-xs font-medium text-emerald-300 hover:text-emerald-200 transition-colors truncate max-w-[200px]"
             >
               {r}
             </button>
@@ -169,7 +169,7 @@ export function MessageInput({ chatId }: { chatId: string }) {
           <button
             type="button"
             onClick={() => setSmartReplies([])}
-            className="p-1 text-zinc-500 hover:text-zinc-300"
+            className="p-1 text-zinc-500 hover:text-zinc-300 shrink-0"
           >
             <X className="h-3.5 w-3.5" />
           </button>
@@ -178,13 +178,13 @@ export function MessageInput({ chatId }: { chatId: string }) {
 
       {/* Emoji Picker Popover */}
       {showEmojiPicker && (
-        <div className="absolute bottom-16 left-4 z-30 flex gap-1 rounded-xl border border-white/[0.12] bg-[#141b2c] p-2 shadow-xl">
+        <div className="absolute bottom-16 left-3 sm:left-4 z-30 flex flex-wrap max-w-[calc(100vw-2rem)] sm:max-w-sm gap-1 rounded-xl border border-white/[0.12] bg-[#141b2c] p-2 shadow-xl">
           {POPULAR_EMOJIS.map((emoji) => (
             <button
               key={emoji}
               type="button"
               onClick={() => addEmoji(emoji)}
-              className="rounded-lg p-1.5 text-base hover:bg-white/[0.1] transition-transform hover:scale-110"
+              className="rounded-lg p-1.5 text-base hover:bg-white/[0.1] transition-transform hover:scale-110 shrink-0"
             >
               {emoji}
             </button>
@@ -193,9 +193,9 @@ export function MessageInput({ chatId }: { chatId: string }) {
       )}
 
       {/* Integrated Message Input Area */}
-      <div className="flex items-end gap-1.5 rounded-xl bg-[#131929] border border-white/[0.08] p-1 focus-within:border-emerald-500/50 transition-colors">
+      <div className="flex items-end gap-1.5 rounded-xl bg-[#131929] border border-white/[0.08] p-1 focus-within:border-emerald-500/50 transition-colors min-w-0 w-full max-w-full">
         {/* Attachment Upload Button */}
-        <label className="cursor-pointer">
+        <label className="cursor-pointer shrink-0">
           <input
             type="file"
             className="hidden"
@@ -211,7 +211,7 @@ export function MessageInput({ chatId }: { chatId: string }) {
         <button
           type="button"
           onClick={() => setShowEmojiPicker((p) => !p)}
-          className="flex h-9 w-9 items-center justify-center rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.06] transition-colors"
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.06] transition-colors"
           title="Add Emoji"
         >
           <Smile className="h-4 w-4" />
@@ -222,7 +222,7 @@ export function MessageInput({ chatId }: { chatId: string }) {
           type="button"
           onClick={loadSmartReplies}
           disabled={loadingReplies}
-          className="flex h-9 w-9 items-center justify-center rounded-lg text-emerald-400 hover:text-emerald-300 hover:bg-emerald-500/10 transition-colors disabled:opacity-50"
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-emerald-400 hover:text-emerald-300 hover:bg-emerald-500/10 transition-colors disabled:opacity-50"
           title="Suggest Smart Replies"
         >
           <Sparkles className={`h-4 w-4 ${loadingReplies ? 'animate-spin' : ''}`} />
@@ -241,7 +241,7 @@ export function MessageInput({ chatId }: { chatId: string }) {
           }}
           placeholder="Write a message..."
           rows={1}
-          className="max-h-32 min-h-[38px] flex-1 resize-none bg-transparent px-2 py-2 text-xs text-zinc-100 placeholder:text-zinc-500 focus:outline-none leading-relaxed"
+          className="max-h-32 min-h-[38px] min-w-0 flex-1 resize-none bg-transparent px-2 py-2 text-xs text-zinc-100 placeholder:text-zinc-500 focus:outline-none leading-relaxed"
         />
 
         {/* Send Button */}

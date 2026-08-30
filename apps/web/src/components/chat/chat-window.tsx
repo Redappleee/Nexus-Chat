@@ -127,15 +127,15 @@ export function ChatWindow() {
   const typingUsers = (typing[activeChatId] || []).filter((id) => id !== user?._id);
 
   return (
-    <div className="relative flex flex-1 flex-col h-full min-h-0 w-full min-w-0 bg-[#090d16] overflow-hidden">
+    <div className="relative flex flex-1 flex-col h-full min-h-0 w-full min-w-0 max-w-full bg-[#090d16] overflow-hidden">
       {/* Chat Window Header */}
-      <header className="relative z-20 shrink-0 flex items-center justify-between border-b border-white/[0.08] bg-[#0f1424] px-4 py-3">
-        <div className="flex items-center gap-3 min-w-0">
+      <header className="relative z-20 shrink-0 flex items-center justify-between border-b border-white/[0.08] bg-[#0f1424] px-3 sm:px-4 py-3 min-w-0 w-full">
+        <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1 mr-1.5 sm:mr-2">
           {/* Mobile Back Button */}
           <button
             type="button"
             onClick={() => setActiveChat(null)}
-            className="md:hidden p-1.5 -ml-1 text-zinc-400 hover:text-white rounded-lg hover:bg-white/[0.08] transition-colors"
+            className="md:hidden p-1.5 -ml-1 shrink-0 text-zinc-400 hover:text-white rounded-lg hover:bg-white/[0.08] transition-colors"
             title="Back to Chats"
           >
             <ArrowLeft className="h-5 w-5" />
@@ -146,9 +146,10 @@ export function ChatWindow() {
             name={title}
             status={other?.status as 'online'}
             size="default"
+            className="shrink-0"
           />
-          <div className="min-w-0">
-            <h3 className="font-semibold text-zinc-100 text-sm flex items-center gap-1.5 truncate">
+          <div className="min-w-0 flex-1">
+            <h3 className="font-semibold text-zinc-100 text-sm flex items-center gap-1.5 min-w-0">
               <span className="truncate">{title}</span>
               {chat.type === 'group' && (
                 <span className="shrink-0 rounded bg-white/[0.08] px-1.5 py-0.5 text-[10px] text-zinc-400 uppercase font-semibold">
@@ -156,22 +157,22 @@ export function ChatWindow() {
                 </span>
               )}
             </h3>
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-1.5 min-w-0">
               {typingUsers.length ? (
-                <div className="text-xs text-emerald-400 font-medium">
+                <div className="text-xs text-emerald-400 font-medium truncate">
                   <span>typing...</span>
                 </div>
               ) : (
-                <p className="text-xs text-zinc-400 flex items-center gap-1">
+                <p className="text-xs text-zinc-400 flex items-center gap-1 truncate">
                   {other?.status === 'online' ? (
                     <>
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                      <span className="text-emerald-400 font-medium">Online</span>
+                      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
+                      <span className="text-emerald-400 font-medium truncate">Online</span>
                     </>
                   ) : (
                     <>
-                      <span className="h-1.5 w-1.5 rounded-full bg-zinc-500" />
-                      <span>Offline</span>
+                      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-zinc-500" />
+                      <span className="truncate">Offline</span>
                     </>
                   )}
                 </p>
@@ -186,7 +187,7 @@ export function ChatWindow() {
             <Button
               size="icon"
               variant="ghost"
-              className="h-8 w-8 rounded-lg hover:bg-white/[0.08] text-zinc-400 hover:text-zinc-200"
+              className="h-8 w-8 shrink-0 rounded-lg hover:bg-white/[0.08] text-zinc-400 hover:text-zinc-200"
               title="Add Friend"
               onClick={() => sendFriendRequest.mutate(other._id)}
             >
@@ -196,7 +197,7 @@ export function ChatWindow() {
           <Button
             size="icon"
             variant="ghost"
-            className="h-8 w-8 rounded-lg hover:bg-white/[0.08] text-zinc-400 hover:text-zinc-200"
+            className="h-8 w-8 shrink-0 rounded-lg hover:bg-white/[0.08] text-zinc-400 hover:text-zinc-200"
             onClick={() => setCustomizerOpen(true)}
             title="Customize Chat Theme"
           >
@@ -205,7 +206,7 @@ export function ChatWindow() {
           <Button
             size="icon"
             variant="ghost"
-            className="h-8 w-8 rounded-lg hover:bg-white/[0.08] text-zinc-400 hover:text-zinc-200"
+            className="h-8 w-8 shrink-0 rounded-lg hover:bg-white/[0.08] text-zinc-400 hover:text-zinc-200"
             onClick={() => setCallActive(true, 'voice')}
             title="Voice Call"
           >
@@ -214,7 +215,7 @@ export function ChatWindow() {
           <Button
             size="icon"
             variant="ghost"
-            className="h-8 w-8 rounded-lg hover:bg-white/[0.08] text-zinc-400 hover:text-zinc-200"
+            className="h-8 w-8 shrink-0 rounded-lg hover:bg-white/[0.08] text-zinc-400 hover:text-zinc-200"
             onClick={() => setCallActive(true, 'video')}
             title="Video Call"
           >
@@ -223,7 +224,7 @@ export function ChatWindow() {
           <Button
             size="icon"
             variant="ghost"
-            className="h-8 w-8 rounded-lg hover:bg-white/[0.08] text-zinc-400 hover:text-zinc-200"
+            className="h-8 w-8 shrink-0 rounded-lg hover:bg-white/[0.08] text-zinc-400 hover:text-zinc-200"
             onClick={() => setAiOpen(true)}
             title="AI Assistant"
           >
@@ -232,7 +233,7 @@ export function ChatWindow() {
           <Button
             size="icon"
             variant="ghost"
-            className="h-8 w-8 rounded-lg hover:bg-white/[0.08] text-zinc-400 hover:text-zinc-200"
+            className="h-8 w-8 shrink-0 rounded-lg hover:bg-white/[0.08] text-zinc-400 hover:text-zinc-200"
             onClick={() => setMenuOpen((o) => !o)}
           >
             <MoreVertical className="h-4 w-4" />
@@ -243,7 +244,7 @@ export function ChatWindow() {
             {menuOpen && (
               <>
                 <div className="fixed inset-0 z-10" onClick={() => setMenuOpen(false)} />
-                <div className="absolute right-0 top-10 z-20 min-w-[190px] rounded-xl border border-white/[0.1] bg-[#141b2c] p-1.5 shadow-xl">
+                <div className="absolute right-0 top-10 z-20 min-w-[190px] max-w-[calc(100vw-2rem)] rounded-xl border border-white/[0.1] bg-[#141b2c] p-1.5 shadow-xl">
                   <button
                     type="button"
                     className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-zinc-200 hover:bg-white/[0.08] transition-colors"
@@ -315,7 +316,7 @@ export function ChatWindow() {
       </header>
 
       {/* Message List Container */}
-      <div className="flex-1 min-h-0 w-full h-full overflow-hidden flex flex-col">
+      <div className="flex-1 min-h-0 w-full max-w-full min-w-0 h-full overflow-hidden flex flex-col">
         <MessageList chatId={activeChatId} />
       </div>
 

@@ -41,7 +41,7 @@ export function FriendsPanel({ open, onClose }: { open: boolean; onClose: () => 
           animate={{ x: 0 }}
           exit={{ x: '100%' }}
           transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-          className="h-full w-full max-w-sm border-l border-white/[0.08] bg-[#090d16]/95 p-5 shadow-2xl backdrop-blur-3xl"
+          className="h-full w-full max-w-full sm:max-w-sm border-l border-white/[0.08] bg-[#090d16]/95 p-4 sm:p-5 shadow-2xl backdrop-blur-3xl"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}

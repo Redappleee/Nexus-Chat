@@ -137,16 +137,16 @@ export default function AdminPage() {
               {users.map((u: { _id: string; username: string; email: string; role: string; isBanned: boolean }) => (
                 <div
                   key={u._id}
-                  className="flex items-center justify-between rounded-xl border border-white/[0.06] bg-[#141b2c] px-4 py-2.5 text-xs"
+                  className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 rounded-xl border border-white/[0.06] bg-[#141b2c] px-4 py-2.5 text-xs min-w-0"
                 >
-                  <div className="flex items-center gap-2">
-                    <span className="font-semibold text-zinc-200">@{u.username}</span>
-                    <span className="text-zinc-400">{u.email}</span>
-                    <span className="rounded bg-white/[0.06] px-1.5 py-0.5 text-[10px] text-zinc-400 uppercase">
+                  <div className="flex flex-wrap items-center gap-2 min-w-0 flex-1">
+                    <span className="font-semibold text-zinc-200 truncate">@{u.username}</span>
+                    <span className="text-zinc-400 truncate">{u.email}</span>
+                    <span className="shrink-0 rounded bg-white/[0.06] px-1.5 py-0.5 text-[10px] text-zinc-400 uppercase">
                       {u.role}
                     </span>
                     {u.isBanned && (
-                      <span className="rounded bg-rose-500/20 border border-rose-500/30 px-1.5 py-0.5 text-[10px] font-bold text-rose-400">
+                      <span className="shrink-0 rounded bg-rose-500/20 border border-rose-500/30 px-1.5 py-0.5 text-[10px] font-bold text-rose-400">
                         Banned
                       </span>
                     )}
@@ -156,7 +156,7 @@ export default function AdminPage() {
                       size="sm"
                       variant="destructive"
                       onClick={() => banUser(u._id)}
-                      className="text-xs h-7 px-3 rounded-lg"
+                      className="text-xs h-7 px-3 rounded-lg shrink-0"
                     >
                       <Ban className="h-3 w-3 mr-1" /> Ban
                     </Button>

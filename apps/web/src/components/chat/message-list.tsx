@@ -140,6 +140,9 @@ export function MessageList({ chatId }: { chatId: string }) {
   const wallpaperStyle: React.CSSProperties = useMemo(() => ({
     height: '100%',
     width: '100%',
+    maxWidth: '100%',
+    overflowX: 'hidden',
+    boxSizing: 'border-box',
     backgroundColor: theme.wallpaperBg || '#090d16',
     backgroundImage:
       theme.wallpaperPattern === 'dots'
@@ -160,7 +163,7 @@ export function MessageList({ chatId }: { chatId: string }) {
   if (!visibleMessages.length) {
     return (
       <div
-        className="flex flex-1 flex-col items-center justify-center p-6 text-center text-zinc-500 transition-colors"
+        className="flex flex-1 flex-col items-center justify-center p-6 text-center text-zinc-500 transition-colors w-full max-w-full overflow-x-hidden box-border"
         style={wallpaperStyle}
       >
         <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-zinc-800/80 border border-white/[0.08]">
@@ -175,8 +178,12 @@ export function MessageList({ chatId }: { chatId: string }) {
   return (
     <Virtuoso
       ref={virtuosoRef}
-      className="h-full w-full px-4 py-3 transition-colors"
-      style={wallpaperStyle}
+      className="h-full w-full max-w-full min-w-0 overflow-x-hidden px-3 sm:px-4 py-3 transition-colors box-border"
+      style={{
+        ...wallpaperStyle,
+        overflowX: 'hidden',
+        boxSizing: 'border-box',
+      }}
       data={visibleMessages}
       initialTopMostItemIndex={visibleMessages.length - 1}
       followOutput="smooth"
@@ -204,7 +211,7 @@ export function MessageList({ chatId }: { chatId: string }) {
         return (
           <div
             key={message._id}
-            className={cn('group relative mb-3 flex gap-2.5 items-end', isMine && 'flex-row-reverse')}
+            className={cn('group relative mb-3 flex gap-2.5 items-end max-w-full min-w-0', isMine && 'flex-row-reverse')}
           >
             {!isMine && (
               <Avatar
@@ -215,10 +222,10 @@ export function MessageList({ chatId }: { chatId: string }) {
               />
             )}
 
-            <div className={cn('relative max-w-[75%] sm:max-w-[65%] flex flex-col', isMine ? 'items-end' : 'items-start')}>
+            <div className={cn('relative max-w-[85%] sm:max-w-[75%] md:max-w-[65%] min-w-0 flex flex-col', isMine ? 'items-end' : 'items-start')}>
               {/* Sender Name in group */}
               {!isMine && (
-                <span className="ml-1 mb-1 text-[11px] font-semibold text-zinc-400">
+                <span className="ml-1 mb-1 text-[11px] font-semibold text-zinc-400 truncate max-w-full">
                   {message.sender.displayName}
                 </span>
               )}
@@ -226,7 +233,7 @@ export function MessageList({ chatId }: { chatId: string }) {
               {/* Message Bubble Container */}
               <div
                 className={cn(
-                  'relative shadow-sm transition-all',
+                  'relative shadow-sm transition-all max-w-full min-w-0 [overflow-wrap:anywhere] [word-break:break-word]',
                   bubbleClass,
                   radiusClass,
                   sizeClass
@@ -236,13 +243,13 @@ export function MessageList({ chatId }: { chatId: string }) {
                 {reply && (
                   <div
                     className={cn(
-                      'mb-2 rounded-lg p-2 text-xs border-l-2',
+                      'mb-2 rounded-lg p-2 text-xs border-l-2 max-w-full min-w-0 overflow-hidden',
                       isMine
                         ? 'bg-black/20 border-white/80 text-emerald-100'
                         : 'bg-black/30 border-emerald-500 text-zinc-300'
                     )}
                   >
-                    <p className="text-[10px] font-semibold tracking-wide uppercase opacity-80">
+                    <p className="text-[10px] font-semibold tracking-wide uppercase opacity-80 truncate">
                       {reply.sender?.displayName || 'Replying'}
                     </p>
                     <p className="truncate text-xs opacity-90">{reply.content || `[${reply.type}]`}</p>
@@ -251,18 +258,18 @@ export function MessageList({ chatId }: { chatId: string }) {
 
                 {/* Media Attachment */}
                 {message.media?.url && (
-                  <div className="overflow-hidden rounded-xl my-1.5">
+                  <div className="overflow-hidden rounded-xl my-1.5 max-w-full min-w-0">
                     {message.type === 'video' ? (
                       <video
                         src={resolveMediaUrl(message.media.url)}
                         controls
-                        className="max-h-72 w-full rounded-xl object-cover bg-black"
+                        className="max-h-72 w-full max-w-full rounded-xl object-contain bg-black"
                       />
                     ) : message.type === 'image' ? (
                       <img
                         src={resolveMediaUrl(message.media.url)}
                         alt="attachment"
-                        className="max-h-72 w-full rounded-xl object-cover hover:opacity-95 transition-opacity cursor-pointer"
+                        className="max-h-72 w-full max-w-full rounded-xl object-contain hover:opacity-95 transition-opacity cursor-pointer"
                         onClick={() => window.open(resolveMediaUrl(message.media!.url), '_blank')}
                       />
                     ) : (
@@ -271,12 +278,12 @@ export function MessageList({ chatId }: { chatId: string }) {
                         target="_blank"
                         rel="noreferrer"
                         className={cn(
-                          'flex items-center gap-2.5 rounded-xl p-2.5 transition-colors',
+                          'flex items-center gap-2.5 rounded-xl p-2.5 transition-colors max-w-full min-w-0',
                           isMine ? 'bg-black/20 hover:bg-black/30 text-white' : 'bg-black/30 hover:bg-black/40 text-zinc-200'
                         )}
                       >
                         <FileText className="h-5 w-5 shrink-0 opacity-80" />
-                        <span className="truncate text-xs font-medium">{message.content || 'Download Document'}</span>
+                        <span className="truncate text-xs font-medium flex-1 min-w-0">{message.content || 'Download Document'}</span>
                         <Download className="h-4 w-4 shrink-0 opacity-70 ml-auto" />
                       </a>
                     )}
@@ -285,26 +292,26 @@ export function MessageList({ chatId }: { chatId: string }) {
 
                 {/* Text Content */}
                 {message.content && (
-                  <p className="whitespace-pre-wrap break-words">{message.content}</p>
+                  <p className="whitespace-pre-wrap break-words [overflow-wrap:anywhere] min-w-0 max-w-full">{message.content}</p>
                 )}
 
                 {/* Translation display */}
                 {translation && (
                   <div className={cn(
-                    'mt-2 pt-2 border-t text-xs',
+                    'mt-2 pt-2 border-t text-xs max-w-full min-w-0 [overflow-wrap:anywhere]',
                     isMine ? 'border-white/20 text-white/90' : 'border-white/[0.08] text-emerald-400'
                   )}>
                     <div className="flex items-center gap-1 font-semibold text-[10px] uppercase tracking-wider mb-0.5">
-                      <Languages className="h-3 w-3" /> English Translation:
+                      <Languages className="h-3 w-3 shrink-0" /> English Translation:
                     </div>
-                    <p className="italic text-zinc-200">{translation}</p>
+                    <p className="italic text-zinc-200 whitespace-pre-wrap break-words">{translation}</p>
                   </div>
                 )}
 
                 {/* Bubble Footer: Timestamp & Read Status */}
                 <div
                   className={cn(
-                    'mt-1 flex items-center justify-end gap-1 text-[10px] select-none',
+                    'mt-1 flex items-center justify-end gap-1 text-[10px] select-none shrink-0',
                     isMine ? 'opacity-80' : 'text-zinc-500'
                   )}
                 >
@@ -326,7 +333,7 @@ export function MessageList({ chatId }: { chatId: string }) {
               {Object.keys(reactionCounts).length > 0 && (
                 <div
                   className={cn(
-                    'flex flex-wrap gap-1 mt-1 select-none',
+                    'flex flex-wrap gap-1 mt-1 select-none max-w-full',
                     isMine ? 'justify-end' : 'justify-start'
                   )}
                 >
@@ -335,7 +342,7 @@ export function MessageList({ chatId }: { chatId: string }) {
                       key={emoji}
                       type="button"
                       onClick={() => react(message._id, emoji)}
-                      className="flex items-center gap-1 rounded-full bg-[#161d2d] border border-white/[0.1] px-2 py-0.5 text-xs text-zinc-200 hover:border-emerald-500/50 transition-colors shadow-sm"
+                      className="flex items-center gap-1 rounded-full bg-[#161d2d] border border-white/[0.1] px-2 py-0.5 text-xs text-zinc-200 hover:border-emerald-500/50 transition-colors shadow-sm shrink-0"
                     >
                       <span>{emoji}</span>
                       {count > 1 && <span className="text-[10px] font-bold text-zinc-400">{count}</span>}
@@ -347,7 +354,7 @@ export function MessageList({ chatId }: { chatId: string }) {
               {/* Action Toolbar on Hover */}
               <div
                 className={cn(
-                  'opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity absolute -top-3 z-10 flex items-center gap-0.5 rounded-lg border border-white/[0.1] bg-[#111726] p-0.5 shadow-lg',
+                  'opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity absolute -top-3 z-10 flex items-center gap-0.5 rounded-lg border border-white/[0.1] bg-[#111726] p-0.5 shadow-lg max-w-[calc(100vw-2.5rem)]',
                   isMine ? 'right-0' : 'left-0'
                 )}
               >

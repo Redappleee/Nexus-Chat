@@ -78,7 +78,7 @@ export function AIAssistant({ open, onClose }: { open: boolean; onClose: () => v
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="absolute right-0 top-0 z-50 flex h-full w-full max-w-sm flex-col border-l border-white/[0.08] bg-[#090d16]/95 backdrop-blur-3xl shadow-2xl"
+            className="absolute right-0 top-0 z-50 flex h-full w-full max-w-full sm:max-w-sm flex-col border-l border-white/[0.08] bg-[#090d16]/95 backdrop-blur-3xl shadow-2xl"
           >
             {/* AI Header */}
             <div className="flex items-center justify-between border-b border-white/[0.08] p-4 bg-white/[0.02]">

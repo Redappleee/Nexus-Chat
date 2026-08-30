@@ -136,17 +136,17 @@ export function ChatSidebar() {
 
   return (
     <>
-      <aside className="relative flex h-full min-h-0 w-full flex-col border-r border-white/[0.08] bg-[#0c101c] overflow-hidden">
+      <aside className="relative flex h-full min-h-0 w-full max-w-full flex-col border-r border-white/[0.08] bg-[#0c101c] overflow-hidden">
         {/* User Header Profile with Interactive Settings Popover */}
-        <div className="shrink-0 relative flex items-center justify-between border-b border-white/[0.06] p-3 bg-[#0f1424]">
+        <div className="shrink-0 relative flex items-center justify-between border-b border-white/[0.06] p-3 bg-[#0f1424] min-w-0 w-full">
           {/* Profile Picture Trigger Button */}
           <button
             type="button"
             onClick={() => setProfileMenuOpen((o) => !o)}
-            className="flex items-center gap-2.5 rounded-xl p-1 -m-1 hover:bg-white/[0.06] transition-all text-left group min-w-0"
+            className="flex items-center gap-2.5 rounded-xl p-1 -m-1 hover:bg-white/[0.06] transition-all text-left group min-w-0 flex-1 mr-1"
             title="Profile & Settings"
           >
-            <div className="relative">
+            <div className="relative shrink-0">
               <Avatar
                 src={user?.avatar}
                 name={user?.displayName}
@@ -157,8 +157,8 @@ export function ChatSidebar() {
                 <Settings className="h-2.5 w-2.5" />
               </span>
             </div>
-            <div className="min-w-0 pr-1">
-              <h2 className="font-semibold text-zinc-100 truncate text-xs flex items-center gap-1">
+            <div className="min-w-0 flex-1 pr-1">
+              <h2 className="font-semibold text-zinc-100 truncate text-xs flex items-center gap-1 min-w-0">
                 <span className="truncate">{user?.displayName}</span>
                 <ChevronDown className="h-3 w-3 text-zinc-500 group-hover:text-zinc-300 shrink-0" />
               </h2>
@@ -169,11 +169,11 @@ export function ChatSidebar() {
           </button>
 
           {/* Action Icons */}
-          <div className="flex items-center gap-0.5">
+          <div className="flex items-center gap-0.5 shrink-0">
             <Button
               size="icon"
               variant="ghost"
-              className="h-8 w-8 rounded-lg hover:bg-white/[0.08] text-zinc-400 hover:text-zinc-200"
+              className="h-8 w-8 shrink-0 rounded-lg hover:bg-white/[0.08] text-zinc-400 hover:text-zinc-200"
               onClick={() => setSearchOpen(true)}
               title="Search (⌘K)"
             >
@@ -182,7 +182,7 @@ export function ChatSidebar() {
             <Button
               size="icon"
               variant="ghost"
-              className="h-8 w-8 rounded-lg hover:bg-white/[0.08] text-zinc-400 hover:text-zinc-200"
+              className="h-8 w-8 shrink-0 rounded-lg hover:bg-white/[0.08] text-zinc-400 hover:text-zinc-200"
               onClick={() => setFriendsOpen(true)}
               title="Friend Requests"
             >
@@ -191,7 +191,7 @@ export function ChatSidebar() {
             <Button
               size="icon"
               variant="default"
-              className="h-8 w-8 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white shadow-none"
+              className="h-8 w-8 shrink-0 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white shadow-none"
               onClick={() => setNewChatOpen(true)}
               title="New Conversation"
             >
@@ -206,7 +206,7 @@ export function ChatSidebar() {
                 className="fixed inset-0 z-40"
                 onClick={() => setProfileMenuOpen(false)}
               />
-              <div className="absolute left-3 top-14 z-50 w-64 rounded-2xl border border-white/[0.1] bg-[#111728] p-2 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
+              <div className="absolute left-3 top-14 z-50 w-64 max-w-[calc(100vw-1.5rem)] rounded-2xl border border-white/[0.1] bg-[#111728] p-2 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
                 {/* User Info Header */}
                 <div className="flex items-center gap-3 p-2 border-b border-white/[0.08] mb-1">
                   <Avatar src={user?.avatar} name={user?.displayName} size="default" />
@@ -348,7 +348,7 @@ export function ChatSidebar() {
                 tabIndex={0}
                 onClick={() => setActiveChat(chat._id)}
                 className={cn(
-                  'group flex w-full items-center gap-3 rounded-xl p-2.5 text-left transition-colors cursor-pointer border',
+                  'group flex w-full max-w-full min-w-0 items-center gap-3 rounded-xl p-2.5 text-left transition-colors cursor-pointer border',
                   isActive
                     ? 'bg-[#162035] border-white/[0.1] text-white shadow-sm'
                     : 'border-transparent text-zinc-300 hover:bg-white/[0.04]'

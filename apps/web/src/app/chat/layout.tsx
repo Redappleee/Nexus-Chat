@@ -84,7 +84,7 @@ export default function ChatLayout({ children }: { children: React.ReactNode }) 
 
   if (checkingAuth && !user) {
     return (
-      <div className="flex h-screen items-center justify-center bg-[#080c16] text-zinc-400">
+      <div className="fixed inset-0 flex h-full w-full items-center justify-center bg-[#080c16] text-zinc-400">
         <div className="flex flex-col items-center gap-3">
           <div className="h-7 w-7 animate-spin rounded-full border-2 border-emerald-500 border-t-transparent" />
           <p className="text-xs font-medium text-zinc-400">Loading your chats...</p>

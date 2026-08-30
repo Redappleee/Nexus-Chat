@@ -8,12 +8,12 @@ export default function ChatPage() {
   const activeChatId = useChatStore((s) => s.activeChatId);
 
   return (
-    <div className="flex h-screen h-[100dvh] w-screen max-w-[100vw] overflow-hidden bg-[#07090e]">
+    <div className="fixed inset-0 flex h-full w-full max-w-full min-w-0 overflow-hidden bg-[#07090e]">
       {/* Sidebar Container */}
       <div
         className={`${
           activeChatId ? 'hidden md:flex' : 'flex'
-        } w-full md:w-80 lg:w-96 shrink-0 h-full flex-col min-h-0 overflow-hidden`}
+        } w-full md:w-80 lg:w-96 shrink-0 h-full flex-col min-h-0 min-w-0 overflow-hidden`}
       >
         <ChatSidebar />
       </div>
@@ -22,7 +22,7 @@ export default function ChatPage() {
       <div
         className={`${
           !activeChatId ? 'hidden md:flex' : 'flex'
-        } flex-1 min-w-0 h-full flex-col min-h-0 overflow-hidden`}
+        } flex-1 min-w-0 w-full md:w-auto h-full flex-col min-h-0 overflow-hidden`}
       >
         <ChatWindow />
       </div>
