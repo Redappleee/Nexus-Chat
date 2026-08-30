@@ -220,7 +220,7 @@ export function MessageList({ chatId }: { chatId: string }) {
             key={message._id}
             className={cn(
               'group relative mb-3 flex gap-2.5 items-end w-full max-w-full min-w-0',
-              isMine ? 'flex-row-reverse pr-[20%]' : ''
+              isMine ? 'flex-row-reverse pr-[10%]' : ''
             )}
           >
             {!isMine && (
