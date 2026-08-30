@@ -178,9 +178,12 @@ export function MessageList({ chatId }: { chatId: string }) {
   return (
     <Virtuoso
       ref={virtuosoRef}
-      className="h-full w-full max-w-full min-w-90 overflow-x-hidden px-3 sm:px-4 py-3 transition-colors box-border"
+      className="h-full w-full max-w-[95%] mx-auto min-w-0 overflow-x-hidden px-2 sm:px-4 py-3 transition-colors box-border"
       style={{
         ...wallpaperStyle,
+        width: '95%',
+        maxWidth: '95%',
+        margin: '0 auto',
         WebkitOverflowScrolling: 'touch',
         touchAction: 'pan-y',
         overscrollBehaviorY: 'contain',
@@ -216,8 +219,8 @@ export function MessageList({ chatId }: { chatId: string }) {
           <div
             key={message._id}
             className={cn(
-              'group relative mb-3 flex gap-2.5 items-end max-w-full min-w-0',
-              isMine ? 'flex-row-reverse mr-[20%]' : ''
+              'group relative mb-3 flex gap-2.5 items-end w-full max-w-full min-w-0',
+              isMine ? 'flex-row-reverse pr-[20%]' : ''
             )}
           >
             {!isMine && (
