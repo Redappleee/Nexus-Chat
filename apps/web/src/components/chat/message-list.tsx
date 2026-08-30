@@ -223,14 +223,12 @@ export function MessageList({ chatId }: { chatId: string }) {
               isMine ? 'flex-row-reverse pr-[10%]' : ''
             )}
           >
-            {!isMine && (
-              <Avatar
-                src={message.sender.avatar}
-                name={message.sender.displayName}
-                className="h-7 w-7 shrink-0 mb-0.5"
-                size="sm"
-              />
-            )}
+            <Avatar
+              src={message.sender?.avatar || (isMine ? user?.avatar : undefined)}
+              name={message.sender?.displayName || (isMine ? (user?.displayName || 'You') : 'User')}
+              className="h-7 w-7 shrink-0 mb-0.5"
+              size="sm"
+            />
 
             <div className={cn('relative max-w-[85%] sm:max-w-[75%] md:max-w-[65%] min-w-0 flex flex-col', isMine ? 'items-end' : 'items-start')}>
               {/* Sender Name in group */}
