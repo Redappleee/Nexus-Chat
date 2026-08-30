@@ -107,7 +107,7 @@ export function MessageList({ chatId }: { chatId: string }) {
   }, [messages, chatId, user?._id]);
 
   const react = async (messageId: string, emoji: string) => {
-    await api.post(`/chats/messages/${messageId}/react`, { emoji }).catch(() => {});
+    await api.post(`/chats/messages/${messageId}/react`, { emoji }).catch(() => { });
   };
 
   const deleteMsg = async (messageId: string, everyone = false) => {
@@ -148,16 +148,16 @@ export function MessageList({ chatId }: { chatId: string }) {
       theme.wallpaperPattern === 'dots'
         ? 'radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px)'
         : theme.wallpaperPattern === 'grid'
-        ? 'linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px)'
-        : theme.wallpaperPattern === 'lines'
-        ? 'repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.02) 0, rgba(255, 255, 255, 0.02) 1px, transparent 0, transparent 8px)'
-        : 'none',
+          ? 'linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px)'
+          : theme.wallpaperPattern === 'lines'
+            ? 'repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.02) 0, rgba(255, 255, 255, 0.02) 1px, transparent 0, transparent 8px)'
+            : 'none',
     backgroundSize:
       theme.wallpaperPattern === 'dots'
         ? '14px 14px'
         : theme.wallpaperPattern === 'grid'
-        ? '20px 20px'
-        : undefined,
+          ? '20px 20px'
+          : undefined,
   }), [theme.wallpaperBg, theme.wallpaperPattern]);
 
   if (!visibleMessages.length) {
@@ -178,7 +178,7 @@ export function MessageList({ chatId }: { chatId: string }) {
   return (
     <Virtuoso
       ref={virtuosoRef}
-      className="h-full w-full max-w-full min-w-0 overflow-x-hidden px-3 sm:px-4 py-3 transition-colors box-border"
+      className="h-full w-full max-w-full min-w-90 overflow-x-hidden px-3 sm:px-4 py-3 transition-colors box-border"
       style={{
         ...wallpaperStyle,
         WebkitOverflowScrolling: 'touch',
@@ -215,7 +215,10 @@ export function MessageList({ chatId }: { chatId: string }) {
         return (
           <div
             key={message._id}
-            className={cn('group relative mb-3 flex gap-2.5 items-end max-w-full min-w-0', isMine && 'flex-row-reverse')}
+            className={cn(
+              'group relative mb-3 flex gap-2.5 items-end max-w-full min-w-0',
+              isMine ? 'flex-row-reverse mr-[20%]' : ''
+            )}
           >
             {!isMine && (
               <Avatar
