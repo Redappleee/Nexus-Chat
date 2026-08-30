@@ -53,8 +53,16 @@ body {
   padding: 0;
   box-sizing: border-box;
   overscroll-behavior-x: none;
-  touch-action: manipulation;
   -webkit-text-size-adjust: 100%;
+}
+
+/* Enable hardware-accelerated momentum scrolling on iOS and mobile browsers */
+[data-virtuoso-scroller],
+.overflow-y-auto,
+.overflow-y-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  touch-action: pan-y;
 }
 
 body {

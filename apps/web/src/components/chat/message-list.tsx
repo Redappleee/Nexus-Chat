@@ -181,6 +181,10 @@ export function MessageList({ chatId }: { chatId: string }) {
       className="h-full w-full max-w-full min-w-0 overflow-x-hidden px-3 sm:px-4 py-3 transition-colors box-border"
       style={{
         ...wallpaperStyle,
+        WebkitOverflowScrolling: 'touch',
+        touchAction: 'pan-y',
+        overscrollBehaviorY: 'contain',
+        overflowY: 'auto',
         overflowX: 'hidden',
         boxSizing: 'border-box',
       }}
